@@ -2,8 +2,23 @@
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-                Title="MainWindow" Height="350" Width="525">
-    <telerik:RadDiagram Name="Diagram">
-        
-    </telerik:RadDiagram>
+                Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <telerik:RadToolBar Grid.Row="0">
+            <telerik:RadButton x:Name="ToggleMarginButton"
+                               Click="ToggleMarginButton_Click">Toggle Margins</telerik:RadButton>
+            <telerik:RadButton x:Name="EditMarginButton"
+                               Click="EditMarginButton_Click">Edit Margins</telerik:RadButton>
+        </telerik:RadToolBar>
+        <telerik:RadDiagram Name="Diagram" 
+                            Margin="10"
+                            Grid.Row="1">
+
+        </telerik:RadDiagram>
+    </Grid>
+    
 </Window>

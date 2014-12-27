@@ -57,3 +57,5 @@ C:\Users\eirwin\Source\Repos\MarginPrototype\MarginPrototype\obj\x86\Debug\Margi
 C:\Users\eirwin\Source\Repos\MarginPrototype\MarginPrototype\obj\x86\Debug\MarginPrototype.g.resources
 C:\Users\eirwin\Source\Repos\MarginPrototype\MarginPrototype\obj\x86\Debug\MarginPrototype.Properties.Resources.resources
 C:\Users\eirwin\Source\Repos\MarginPrototype\MarginPrototype\obj\x86\Debug\MarginPrototype.csproj.GenerateResource.Cache
+C:\Users\Eric.Irwin\Source\Repos\MarginPrototype\MarginPrototype\obj\x86\Debug\EditMarginsWindow.baml
+C:\Users\Eric.Irwin\Source\Repos\MarginPrototype\MarginPrototype\obj\x86\Debug\EditMarginsWindow.g.cs
