@@ -82,6 +82,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MarginChangedEventArgs.cs" />
+    <Compile Include="Shapes\MarginShape.xaml.cs">
+      <DependentUpon>MarginShape.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PageViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
     <Page Include="EditMarginsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +106,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Shapes\MarginShape.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

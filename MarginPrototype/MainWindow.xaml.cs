@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using MarginPrototype.Shapes;
+using MarginPrototype.ViewModels;
 using Telerik.Windows.Controls;
 
 namespace MarginPrototype
@@ -20,48 +13,86 @@ namespace MarginPrototype
     /// </summary>
     public partial class MainWindow : Window
     {
-        private RadDiagramShape _marginShape;
+        private Thickness _margin;
+        private List<MarginShape> _marginShapes;
+        private ReportViewModel _reportViewModel;
 
         private const double DEFAULT_MARGIN = 20;
-
-        private Thickness _margin;
 
         public MainWindow()
         {
             InitializeComponent();
-            InitializeMarginLines();
+
+            _margin = new Thickness(DEFAULT_MARGIN);
+            _marginShapes = new List<MarginShape>();
+
+            InitializeReport();
+            InitializeFirstPage();
+            InitializeFirstPageMarginShape();
         }
 
-        private void InitializeMarginLines()
+        private void InitializeReport()
         {
-            _margin = new Thickness(DEFAULT_MARGIN);
+            _reportViewModel = new ReportViewModel();
 
-            _marginShape = new RadDiagramShape();
-            _marginShape.Background = new SolidColorBrush(Colors.Transparent);
-            _marginShape.Position = new Point(_margin.Top,_margin.Left);
-            _marginShape.IsEnabled = false;
-            _marginShape.Loaded += UpdateMarginsShape;
+        }
 
-            Diagram.SizeChanged += UpdateMarginsShape;
-            Diagram.AddShape(_marginShape);
+        private void InitializeFirstPage()
+        {
+            _reportViewModel.Pages.Add(new PageViewModel()
+            {
+                PageNumber = 1,
+                Top = 0,
+                Bottom = Diagram.ActualHeight
+            });
+        }
+
+        private void InitializeFirstPageMarginShape()
+        {
+            var marginShape = new MarginShape();
+            marginShape.Position = new Point(_margin.Left,_margin.Top);
+            marginShape.Loaded += UpdateMarginsShape;
+
+            _marginShapes.Add(marginShape);
+
+            Diagram.AddShape(marginShape);
         }
 
         private void UpdateMarginsShape(object sender,EventArgs e)
         {
-            _marginShape.Position = new Point(_margin.Top, _margin.Left);
-            _marginShape.Height = Diagram.ActualHeight - (_margin.Top + _margin.Bottom);
-            _marginShape.Width = Diagram.ActualWidth - (_margin.Left + _margin.Right);
+            _marginShapes.ForEach(marginShape =>
+                {
+                    marginShape.Position = new Point(_margin.Left, _margin.Top);
+                    marginShape.Height = Diagram.ActualHeight - (_margin.Top + _margin.Bottom);
+                    marginShape.Width = Diagram.ActualWidth - (_margin.Left + _margin.Right);
+                });
         }
 
         private void ToggleMarginButton_Click(object sender, RoutedEventArgs e)
         {
-            _marginShape.Visibility = _marginShape.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            _marginShapes.ForEach(marginShape =>
+                {
+                    marginShape.Visibility = marginShape.Visibility == Visibility.Visible
+                                                  ? Visibility.Hidden
+                                                  : Visibility.Visible;
+                });
+
         }
 
         private void EditMarginButton_Click(object sender, RoutedEventArgs e)
         {
-            EditMarginsWindow editMarginsWindow = new EditMarginsWindow(_marginShape,Diagram,_margin);
+            var editMarginsWindow = new EditMarginsWindow(_margin);
+            editMarginsWindow.MarginChanged += (o, args) =>
+                {
+                    _margin = args.Margin;
+                    UpdateMarginsShape(o, args);
+                };
             editMarginsWindow.Show();
+        }
+
+        private void NewPageButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
