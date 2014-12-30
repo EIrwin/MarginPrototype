@@ -2,25 +2,42 @@
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-                Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-            <RowDefinition/>
+                Title="MainWindow" 
+                WindowStartupLocation="CenterScreen" 
+                WindowState="Maximized">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <telerik:RadToolBar Grid.Row="0">
-            <telerik:RadButton x:Name="ToggleMarginButton"
+            <telerik:RadToolBar Grid.Row="0">
+                <telerik:RadButton x:Name="ToggleMarginButton"
                                Click="ToggleMarginButton_Click">Toggle Margins</telerik:RadButton>
-            <telerik:RadButton x:Name="EditMarginButton"
+                <telerik:RadButton x:Name="EditMarginButton"
                                Click="EditMarginButton_Click">Edit Margins</telerik:RadButton>
-            <telerik:RadButton x:Name="NewPageButton"
+                <telerik:RadButton x:Name="NewPageButton"
                                Click="NewPageButton_Click">New Page</telerik:RadButton>
-        </telerik:RadToolBar>
-        <telerik:RadDiagram Name="Diagram" 
-                            Margin="10"
-                            Grid.Row="1">
+            </telerik:RadToolBar>
 
-        </telerik:RadDiagram>
+            <telerik:RadDiagram Name="Diagram" 
+                                Grid.Row="1"
+                                Margin="10"
+                                IsZoomEnabled="False"
+                                MouseDown="Diagram_PreviewMouseDown"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+            </telerik:RadDiagram>
+
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="2"
+                    HorizontalAlignment="Left">
+            <TextBlock Text="Page Clicked: "/>
+            <TextBlock x:Name="CurrentPosition"/>
+        </StackPanel>
+
+
+
     </Grid>
-    
 </Window>
